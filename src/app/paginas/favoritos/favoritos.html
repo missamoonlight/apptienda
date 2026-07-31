@@ -1,0 +1,63 @@
+<section class="favoritos-contenedor">
+  <header class="encabezado">
+    <p class="eyebrow">Tu selección</p>
+    <h1>Mis favoritos</h1>
+    <p class="descripcion">
+      Revisa los productos que has guardado para volver a ellos cuando quieras.
+    </p>
+  </header>
+
+  <div class="resumen">
+    <p class="contador">Total de productos seleccionados: {{ favoritosService.obtenerTotalFavoritos() }}</p>
+  </div>
+
+  @if (favoritosService.obtenerTotalFavoritos() === 0) {
+    <div class="vacio">
+      <p>Aún no tienes productos favoritos.</p>
+      <a routerLink="/productos" pButton>
+        <span pButtonLabel>Explorar productos</span>
+      </a>
+    </div>
+  } @else {
+    <div class="lista-favoritos">
+      @for (producto of favoritosService.obtenerFavoritos(); track producto.id) {
+        <article class="favorito-item">
+          <div class="detalle-favorito">
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <strong>{{ producto.precio | currency: 'MXN' }}</strong>
+          </div>
+
+          <div class="acciones-favorito">
+            <a [routerLink]="['/productos', producto.id]" pButton>
+              <span pButtonLabel>Ver detalle</span>
+            </a>
+
+            <p-button
+              label="Eliminar"
+              severity="danger"
+              [outlined]="true"
+              (onClick)="abrirConfirmacion(producto)"
+            />
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>
+
+<p-dialog
+  header="Confirmar eliminación"
+  [modal]="true"
+  [closable]="false"
+  [(visible)]="mostrarDialogo"
+>
+  <p>
+    ¿Deseas eliminar <strong>{{ productoAEliminar?.nombre }}</strong> de tus favoritos?
+  </p>
+
+  <ng-template #footer>
+    <p-button label="Cancelar" severity="secondary" [outlined]="true" (onClick)="cancelarEliminacion()" />
+    <p-button label="Confirmar" severity="danger" (onClick)="confirmarEliminacion()" />
+  </ng-template>
+</p-dialog>

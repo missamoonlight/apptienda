@@ -1,0 +1,72 @@
+<main class="galeria">
+  <header class="encabezado">
+    <p>COLECCION VISUAL</p>
+    <h1>Galeria</h1>
+    <span>Personaliza la forma en que recorres las imagenes.</span>
+  </header>
+
+  <section class="contenido" aria-label="Galeria de imagenes">
+    <p-carousel
+      class="carrusel"
+      [value]="imagenes"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      [showNavigators]="true"
+      [showIndicators]="true"
+      [autoplayInterval]="reproduccionAutomatica ? intervalo : 0"
+    >
+      <ng-template let-imagen #item>
+        <figure class="diapositiva">
+          <img
+            [src]="imagen.fuente"
+            [alt]="imagen.alternativa"
+            [style.transform]="'scale(' + escala / 100 + ')'"
+          />
+          <figcaption>
+            <h2>{{ imagen.titulo }}</h2>
+            <p>{{ imagen.descripcion }}</p>
+          </figcaption>
+        </figure>
+      </ng-template>
+    </p-carousel>
+
+    <aside class="controles" aria-label="Controles de la galeria">
+      <h2>Controles</h2>
+
+      <div class="control interruptor">
+        <div>
+          <label for="reproduccion">Reproduccion automatica</label>
+          <small>{{ reproduccionAutomatica ? 'Activada' : 'Pausada' }}</small>
+        </div>
+        <p-toggleswitch inputId="reproduccion" [(ngModel)]="reproduccionAutomatica" />
+      </div>
+
+      <div class="control">
+        <label for="intervalo">Intervalo: {{ intervalo / 1000 }} s</label>
+        <p-slider
+          inputId="intervalo"
+          [(ngModel)]="intervalo"
+          [min]="1000"
+          [max]="10000"
+          [step]="1000"
+          [disabled]="!reproduccionAutomatica"
+        />
+        <small>Tiempo entre cada cambio de imagen.</small>
+      </div>
+
+      <div class="control escala">
+        <label for="escala">Escala de imagen</label>
+        <p-knob
+          inputId="escala"
+          [(ngModel)]="escala"
+          [min]="75"
+          [max]="125"
+          [step]="5"
+          valueTemplate="{value}%"
+          ariaLabel="Escala de imagen"
+        />
+      </div>
+    </aside>
+  </section>
+</main>

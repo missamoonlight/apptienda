@@ -1,36 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Producto } from '../modelos/producto';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { NuevoProducto, Producto } from '../modelos/producto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosServicio {
-  private readonly productos: Producto[] = [
-    {
-      id: 1,
-      nombre: 'Teclado',
-      descripcion: 'Teclado compacto para practicar Angular.',
-      precio: 650
-    },
-    {
-      id: 2,
-      nombre: 'Ratón',
-      descripcion: 'Ratón inalámbrico de uso diario.',
-      precio: 420
-    },
-    {
-      id: 3,
-      nombre: 'Monitor',
-      descripcion: 'Monitor de 24 pulgadas.',
-      precio: 3200
-    }
-  ];
+  private readonly http = inject(HttpClient);
+  private readonly url = '/api/productos';
 
-  obtenerProductos(): Producto[] {
-    return this.productos;
+  obtenerProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.url);
   }
 
-  obtenerProductoPorId(id: number): Producto | undefined {
-    return this.productos.find((producto) => producto.id === id);
+  obtenerProductoPorId(id: number): Observable<Producto> {
+    return this.http.get<Producto>(`${this.url}/${id}`);
+  }
+
+  crearProducto(producto: NuevoProducto): Observable<Producto> {
+    return this.http.post<Producto>(this.url, producto);
+  }
+
+  actualizarProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.url}/${producto.id}`, producto);
+  }
+
+  eliminarProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 }

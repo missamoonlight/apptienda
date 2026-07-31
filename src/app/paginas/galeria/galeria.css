@@ -1,0 +1,153 @@
+.galeria {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.encabezado {
+  margin-bottom: 2rem;
+}
+
+.encabezado p {
+  color: var(--p-primary-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+.encabezado h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.encabezado span,
+.control small {
+  color: #64748b;
+}
+
+.contenido {
+  align-items: start;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+
+.carrusel {
+  min-width: 0;
+}
+
+.diapositiva {
+  background: #0f172a;
+  border-radius: 1rem;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.diapositiva img {
+  display: block;
+  height: clamp(280px, 52vw, 520px);
+  object-fit: cover;
+  transition: transform 350ms ease;
+  width: 100%;
+}
+
+.diapositiva figcaption {
+  background: linear-gradient(transparent, rgb(15 23 42 / 88%));
+  bottom: 0;
+  color: white;
+  left: 0;
+  padding: 4rem 1.5rem 1.25rem;
+  position: absolute;
+  right: 0;
+}
+
+.diapositiva h2,
+.diapositiva p {
+  margin-bottom: 0;
+}
+
+.diapositiva h2 {
+  font-size: 1.4rem;
+}
+
+.diapositiva p {
+  margin-top: 0.25rem;
+}
+
+.controles {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 7%);
+  padding: 1.25rem;
+}
+
+.controles > h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1.25rem;
+}
+
+.control {
+  border-top: 1px solid #e2e8f0;
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.25rem 0;
+}
+
+.control:last-child {
+  padding-bottom: 0;
+}
+
+.control label {
+  font-weight: 600;
+}
+
+.interruptor {
+  align-items: center;
+  grid-template-columns: 1fr auto;
+}
+
+.interruptor small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.escala {
+  justify-items: center;
+}
+
+.escala label {
+  justify-self: start;
+}
+
+@media (max-width: 800px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .controles {
+    display: grid;
+    gap: 0 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .controles > h2 {
+    grid-column: 1 / -1;
+  }
+
+  .control {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 580px) {
+  .galeria {
+    padding-inline: 1rem;
+  }
+
+  .controles {
+    display: block;
+  }
+}

@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { DetalleProducto } from './paginas/detalle-producto/detalle-producto';
-
 
 export const routes: Routes = [
   {
@@ -24,6 +22,16 @@ export const routes: Routes = [
     path: 'contacto',
     loadComponent: () =>
       import('./paginas/contacto/contacto').then((archivo) => archivo.Contacto)
+  },
+  {
+    path: 'favoritos',
+    loadComponent: () =>
+      import('./paginas/favoritos/favoritos').then((archivo) => archivo.Favoritos)
+  },
+  {
+    path: 'galeria',
+    loadComponent: () =>
+      import('./paginas/galeria/galeria').then((archivo) => archivo.Galeria)
   },
   {
     path: '**',
